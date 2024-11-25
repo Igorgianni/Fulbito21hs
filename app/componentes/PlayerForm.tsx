@@ -8,7 +8,7 @@ interface PlayerFormProps {
 
 export default function PlayerForm({ addPlayer, playerCount }: PlayerFormProps) {
   const [player, setPlayer] = useState<Player>({
-    id: Date.now(), // Use timestamp as a simple unique id
+    id: Date.now(),
     name: '',
     physicalCondition: 5,
     shooting: 5,
@@ -28,7 +28,7 @@ export default function PlayerForm({ addPlayer, playerCount }: PlayerFormProps) 
     }
     addPlayer(player)
     setPlayer({
-      id: Date.now(), // Generate a new id for the next player
+      id: Date.now(),
       name: '',
       physicalCondition: 5,
       shooting: 5,
@@ -50,49 +50,35 @@ export default function PlayerForm({ addPlayer, playerCount }: PlayerFormProps) 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Nombre del Jugador ({playerCount}/20)
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={player.name}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-          required
-        />
-      </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        value={player.name}
+        onChange={handleChange}
+        placeholder="Nombre del jugador"
+        required
+      />
       {Object.entries(player).map(([key, value]) => {
         if (key === 'name' || key === 'id') return null
         return (
           <div key={key}>
-            <label htmlFor={key} className="block text-sm font-medium text-gray-700 capitalize">
-              {key.replace(/([A-Z])/g, ' $1').trim()}
-            </label>
+            <label>{key}: </label>
             <input
               type="range"
-              id={key}
               name={key}
               min="1"
               max="10"
               value={value}
               onChange={handleChange}
-              className="mt-1 block w-full"
             />
-            <span className="text-sm text-gray-500">{value}</span>
+            <span>{value}</span>
           </div>
         )
       })}
-      <button
-        type="submit"
-        className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition duration-300"
-      >
-        Agregar Jugador
-      </button>
+      <button type="submit">Agregar Jugador</button>
     </form>
   )
 }
+
 
