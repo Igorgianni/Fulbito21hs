@@ -8,6 +8,7 @@ interface PlayerFormProps {
 
 export default function PlayerForm({ addPlayer, playerCount }: PlayerFormProps) {
   const [player, setPlayer] = useState<Player>({
+    id: Date.now(), // Use timestamp as a simple unique id
     name: '',
     physicalCondition: 5,
     shooting: 5,
@@ -27,6 +28,7 @@ export default function PlayerForm({ addPlayer, playerCount }: PlayerFormProps) 
     }
     addPlayer(player)
     setPlayer({
+      id: Date.now(), // Generate a new id for the next player
       name: '',
       physicalCondition: 5,
       shooting: 5,
@@ -64,7 +66,7 @@ export default function PlayerForm({ addPlayer, playerCount }: PlayerFormProps) 
         />
       </div>
       {Object.entries(player).map(([key, value]) => {
-        if (key === 'name') return null
+        if (key === 'name' || key === 'id') return null
         return (
           <div key={key}>
             <label htmlFor={key} className="block text-sm font-medium text-gray-700 capitalize">
