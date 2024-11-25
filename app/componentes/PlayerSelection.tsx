@@ -1,6 +1,4 @@
 import { Player } from '../types'
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
 
 interface PlayerSelectionProps {
   players: Player[]
@@ -10,20 +8,18 @@ interface PlayerSelectionProps {
 
 export default function PlayerSelection({ players, selectedPlayers, togglePlayerSelection }: PlayerSelectionProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div>
       {players.map((player) => (
-        <div key={player.id} className="flex items-center space-x-2">
-          <Checkbox
+        <div key={player.id}>
+          <input
+            type="checkbox"
             id={`player-${player.id}`}
             checked={selectedPlayers.some(p => p.id === player.id)}
-            onCheckedChange={() => togglePlayerSelection(player)}
+            onChange={() => togglePlayerSelection(player)}
           />
-          <Label
-            htmlFor={`player-${player.id}`}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
+          <label htmlFor={`player-${player.id}`}>
             {player.name}
-          </Label>
+          </label>
         </div>
       ))}
     </div>
